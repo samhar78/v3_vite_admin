@@ -12,7 +12,7 @@ const layoutMap = [
         path: "data",
         name: "Data",
         component: RouteView,
-        meta: { title: "数据管理", icon: "DataLine" },
+        meta: { title: "数据管理", icon: "DataLine",roles:["doctor"] },
         children: [
             {
                 path: "",
@@ -23,7 +23,7 @@ const layoutMap = [
             {
                 path: "table",
                 name: "DataTable",
-                meta: { title: "数据表格", roles: ["admin"] },
+                meta: { title: "数据表格" },
                 component: () => import("../views/data/Table.vue")
             }
         ]

@@ -76,7 +76,7 @@ export default {
                 let params = { name: loginFormState.name, pwd: loginFormState.pwd };
 
                 setTimeout(() => {
-                    let users = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name };
+                    let users = { role: loginFormState.name, username: loginFormState.name };
                     Object.assign(params, users);
                     sessionStorage.setItem("jwt", encode(JSON.stringify(params)));
                     store.dispatch("setUser", params);
