@@ -1,7 +1,7 @@
 <template>
   <TableComponent v-bind="tableConfig">
     <template #nameHeader>
-      <div>姓名啊法网发</div>
+      <div>姓名sssefeeffffffffffff</div>
     </template>
     <template #name>
       <div>Yana</div>
@@ -17,7 +17,7 @@ const tableConfig: TableConfigInterface = {
   api: 'getTableData',
   columns: [
     {
-      prop: 'date',
+      prop: 'log_time',
       label: '上传时间',
       tooltip: 'This is Date'
     },

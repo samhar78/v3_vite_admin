@@ -111,6 +111,9 @@
 
 <script lang="ts" setup>
 import { ref,reactive,computed } from 'vue';
+import { getCurrentInstance } from 'vue';
+import axios from 'axios'
+const instance = getCurrentInstance()?.proxy;
 interface OperationInterface {
   click: (row: unknown) => void // 按钮点击方法，参数为当前行数据
   text?: string // 按钮显示文字
@@ -152,6 +155,9 @@ interface TableConfigInterface {
   maxHeight?: number | string // 表格最大高度
   layout?: string
 }
+
+
+const { proxy } = getCurrentInstance()
 
 const props = withDefaults(defineProps<TableConfigInterface>(), {
   rowKey: 'id',
@@ -208,94 +214,18 @@ const handleSortChange = (data: { prop: string; order: string | null }) => {
 const goDetail = (row: unknown) => {
   console.log(row)
 }
-
+const get_houduan=async ()=> {
+        const res=await axios.get("http://100.78.169.243:8000/query_all_log").then((res) => {
+          console.log(1)
+        });
+        return proxy.this.res.data;
+      }
 // 发送接口
 const loading = ref(true)
-const getTableData = () => {
+const getTableData = async () => {
   loading.value = true
   showOperation.value = false
-  tableData = [
-    {
-      date: '2016-05-02',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-03',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-04',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-05',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-06',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-07',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-08',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-09',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-10',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    },
-    {
-      date: '2016-05-11',
-      name: 'Tom',
-      state: 'California',
-      city: 'Los Angeles',
-      address: 'No. 189, Grove St, Los Angeles',
-      zip: 'CA 90036'
-    }
-  ]
+  tableData = await get_houduan();
   loading.value = false
 }
 getTableData()
