@@ -1,7 +1,7 @@
 <template>
   <TableComponent v-bind="tableConfig">
     <template #nameHeader>
-      <div>姓名sssefeeffffffffffff</div>
+      <div>姓名啊法网发</div>
     </template>
     <template #name>
       <div>Yana</div>
@@ -18,12 +18,12 @@ const tableConfig: TableConfigInterface = {
   columns: [
     {
       prop: 'date',
-      label: 'Date',
+      label: '上传时间',
       tooltip: 'This is Date'
     },
     {
       prop: 'name',
-      label: 'Name'
+      label: '发送者'
     },
     {
       prop: 'state',
@@ -37,13 +37,7 @@ const tableConfig: TableConfigInterface = {
       prop: 'address',
       label: 'Address'
     },
-    {
-      prop: 'zip',
-      label: 'Zip',
-      style: 'color: red',
-      labelStyle: 'color: red',
-      sortable: true
-    }
+
   ],
   
   rowKey: 'date',
