@@ -27,6 +27,14 @@
                             <icons name="Lock"></icons>
                         </template>
                     </el-input>
+                <el-form-item prop="role">
+                <el-select v-model="loginFormState.role" placeholder="请选择角色">
+                   <el-option label="数据提供者" value="dataProvider"></el-option>
+                   <el-option label="数据使用者" value="dataUser"></el-option>
+                   <el-option label="数据处理者" value="dataProcessor"></el-option>
+                </el-select>
+                </el-form-item>
+    
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" style="width: 100%" :loading="loginFormState.loading" @click="handleLogin">登 录</el-button>
@@ -54,6 +62,7 @@ export default {
         const loginFormState = reactive({
             name: "",
             pwd: "",
+            role: "",  // 新增角色
             loading: false,
         });
 
@@ -64,6 +73,12 @@ export default {
                 { min: 5, max: 16, message: "密码长度为5-16位", trigger: "blur" },
             ],
         };
+        const testUsers = reactive([
+          { name: 'Doctor', pwd: '101abcd', role: 'dataProvider' },
+          { name: 'Professor', pwd: '102abcd', role: 'dataUser' },
+          { name: 'Student', pwd: '103abcd', role: 'dataProcessor' }
+        ]);
+
 
         const handleLogin = () => {
             loginFormRef.value.validate(valid => {
@@ -73,32 +88,31 @@ export default {
 
                 loginFormState.loading = true;
 
-                let params = { name: loginFormState.name, pwd: loginFormState.pwd };
+                  // 查找匹配的测试用户
+        const user = testUsers.find(user => user.name === loginFormState.name && user.pwd === loginFormState.pwd);
 
-                setTimeout(() => {
-                    let users = { role: loginFormState.name, username: loginFormState.name };
-                    Object.assign(params, users);
-                    sessionStorage.setItem("jwt", encode(JSON.stringify(params)));
-                    store.dispatch("setUser", params);
-                    loginFormState.loading = false;
-                    router.replace("/");
-                }, 1000);
-
-                // proxy.$axios
-                // 	.post("/user/login", proxy.$qs.stringify(params))
-                // 	.then(res => {
-                // 		let { code, result_data, message } = res.data;
-                // 		if (code == 1) {
-                // 			console.log("login_success", result_data);
-                // 			ElMessage.success("登录成功");
-                // 		} else {
-                // 			ElMessage.error("登录失败：" + message);
-                // 		}
-                // 	})
-                // 	.catch(err => {
-                // 		console.log("login err", err);
-                // 		ElMessage.error("登录失败");
-                // 	});
+        if (user) {
+            // 如果找到匹配的用户，模拟登录成功的逻辑
+            setTimeout(() => {
+                let params = {
+                    role: user.role,
+                    username: user.name,
+                };
+                sessionStorage.setItem("jwt", encode(JSON.stringify(params)));
+                store.dispatch("setUser", params);
+                loginFormState.loading = false;
+                router.replace("/");
+                // 显示登录成功消息
+                proxy.$message.success("登录成功");
+            }, 1000);
+        } else {
+            // 没有找到匹配的用户，模拟登录失败的逻辑
+            setTimeout(() => {
+                loginFormState.loading = false;
+                // 显示登录失败消息
+                proxy.$message.error("登录失败：账号或密码错误");
+            }, 1000);
+        }
             });
         };
 
