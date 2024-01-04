@@ -5,28 +5,20 @@ const layoutMap = [
     {
         path: "",
         name: "Index",
-        meta: { title: "控制台", icon: "HomeFilled" },
+        meta: { title: "文件发送", icon: "HomeFilled" },
         component: () => import("../views/Index.vue")
     },
     {
         path: "data",
         name: "Data",
-        component: RouteView,
-        meta: { title: "数据管理", icon: "DataLine",roles:["doctor"] },
-        children: [
-            {
-                path: "",
-                name: "DataList",
-                meta: { title: "数据列表" },
-                component: () => import("../views/data/List.vue")
-            },
-            {
-                path: "table",
-                name: "DataTable",
-                meta: { title: "数据表格" },
-                component: () => import("../views/data/Table.vue")
-            }
-        ]
+        meta: { title: "数据列表", icon: "DataLine" },
+        component:()=>import("../views/data/List.vue")
+    },
+    {
+        path: "table",
+        name: "Table",
+        meta: { title: "文件接受", icon: "" },
+        component: () => import("../views/data/Table.vue")
     },
     {
         path: "admin",
