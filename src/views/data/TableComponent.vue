@@ -215,9 +215,7 @@ const goDetail = (row: unknown) => {
   console.log(row)
 }
 const get_houduan=async ()=> {
-        const res=await axios.get("http://100.78.169.243:8000/query_all_log").then((res) => {
-          console.log(1)
-        });
+        const res=await axios.get("http://100.78.169.243:8000/query_all_log")
         return proxy.this.res.data;
       }
 // 发送接口
