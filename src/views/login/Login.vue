@@ -27,13 +27,7 @@
                             <icons name="Lock"></icons>
                         </template>
                     </el-input>
-                <el-form-item prop="role">
-                <el-select v-model="loginFormState.role" placeholder="请选择角色">
-                   <el-option label="数据提供者" value="dataProvider"></el-option>
-                   <el-option label="数据使用者" value="dataUser"></el-option>
-                   <el-option label="数据处理者" value="dataProcessor"></el-option>
-                </el-select>
-                </el-form-item>
+
     
                 </el-form-item>
                 <el-form-item>

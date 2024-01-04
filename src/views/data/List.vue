@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 
-import TableComponent from './TableComponent.vue';
+import TableComponent from './TableComponentView.vue'
 import { ref } from 'vue'; 
 const tableConfig: TableConfigInterface = {
   api: 'getTableData',

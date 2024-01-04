@@ -2,13 +2,8 @@
     <div>
       <el-button type="primary" @click="get_houduan">get请求</el-button>
       <el-button type="primary" @click="post_houduan">post请求</el-button>
-      <div style="width: 70%;margin-left: 30px;margin-top: 30px;">
-            <el-button @click="uploadFile"
-                type="primary" round class="right"
-                size="default">Upload</el-button>
-        </div>
-        
-        <input ref="file" type="file" @change="onFileChange" style="display: none;"/>
+
+
     </div>
 
     <div style="width: 70%;margin-left: 30px;margin-top: 30px;">
@@ -51,23 +46,7 @@
             console.log(res);
           });
       },
-      async onFileChange(e) {
-        this.file = e.target.files[0]; // 可以不在data 中声明
-        const formData = new FormData();
-        formData.append("file", this.file);
-        console.log(this.file);
-        try {
-            // 向upload页面上传
-            const response = await axios.post("http://127.0.0.1:8000/upload/", formData);//上传的代码
-            console.log(response);
-            this.$emit("change", this.file); //并将当地的文件上传至父组件(可删去)
-        } catch (error) {
-            console.error("Error uploading file:", error);
-        }
-    },
-    uploadFile() {
-        this.$refs.file.click();
-    },
+
     },
     downloadFile(url, options = {}){
         return new Promise((resolve, reject) => {
